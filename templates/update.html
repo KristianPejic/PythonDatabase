@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update User</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+  </head>
+  <body class="bg-light">
+    <div class="container mt-5">
+      <h1 class="text-center mb-4">Update User</h1>
+      <form method="POST" class="bg-white p-4 rounded shadow-sm">
+        <div class="mb-3">
+          <label for="first_name" class="form-label">First Name</label>
+          <input
+            type="text"
+            name="first_name"
+            class="form-control"
+            value="{{ user[1] }}"
+            required />
+        </div>
+        <div class="mb-3">
+          <label for="last_name" class="form-label">Last Name</label>
+          <input
+            type="text"
+            name="last_name"
+            class="form-control"
+            value="{{ user[2] }}"
+            required />
+        </div>
+        <div class="mb-3">
+          <label for="year_of_study" class="form-label">Year of Study</label>
+          <input
+            type="number"
+            name="year_of_study"
+            class="form-control"
+            value="{{ user[3] }}"
+            required />
+        </div>
+        <div class="mb-3">
+          <label for="field_of_study" class="form-label">Field of Study</label>
+          <input
+            type="text"
+            name="field_of_study"
+            class="form-control"
+            value="{{ user[4] }}"
+            required />
+        </div>
+        <div class="mb-3">
+          <label for="gpa" class="form-label">GPA</label>
+          <input
+            type="number"
+            step="0.01"
+            name="gpa"
+            class="form-control"
+            value="{{ user[5] }}"
+            required />
+        </div>
+        <button type="submit" class="btn btn-success">Update</button>
+        <a href="/" class="btn btn-secondary">Cancel</a>
+      </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
