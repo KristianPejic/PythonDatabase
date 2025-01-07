@@ -244,13 +244,58 @@ def sort_users():
 
     return render_template('users.html', users=users, sort_by=sort_by, order=order)
 
+def insert_random_users():
+    fake = Faker()
+    conn = connect_to_db()
+    if not conn:
+        print("Unable to connect to the database.")
+        return
 
+    try:
+        cursor = conn.cursor()
+        
+        # Generiramo 1000 slučajnih studenata
+        users = [
+            (
+                fake.first_name(),
+                fake.last_name(),
+                fake.random_int(min=1, max=4),
+                fake.job(),
+                round(fake.random.uniform(2.0, 4.0), 2)
+            )
+            for _ in range(1000)
+        ]
+
+        # SQL upit za unos podataka
+        query = """
+        INSERT INTO users (first_name, last_name, year_of_study, field_of_study, gpa)
+        VALUES (%s, %s, %s, %s, %s);
+        """
+
+        # Batch unos svih generiranih studenata
+        cursor.executemany(query, users)
+        conn.commit()
+
+        print("Successfully inserted 1000 random students into the database.")
+    except Exception as e:
+        conn.rollback()
+        print("Error inserting random students:", e)
+    finally:
+        cursor.close()
+        conn.close()
 
 @app.route('/')
 def display_users():
     users = fetch_users()
     return render_template('users.html', users=users)
-
+@app.route('/add_1000_users', methods=['POST'])
+def add_1000_users():
+    try:
+        insert_random_users()
+        return "Successfully added 1000 random users!", 200
+    except Exception as e:
+        return f"Error: {e}", 500
 
 if __name__ == "__main__":
     app.run(debug=True)
+    insert_random_users()
